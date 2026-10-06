@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Seu Produto</title>
+  <title>ARMY Bomb</title>
 
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,66 +22,79 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 700px;
       margin: auto;
-      padding: 40px 20px;
+      padding: 30px 16px;
     }
 
-    .hero {
+    .card {
       background: white;
-      border-radius: 20px;
-      padding: 50px 30px;
-      text-align: center;
+      border-radius: 22px;
+      padding: 35px 22px;
       box-shadow: 0 10px 30px rgba(0,0,0,.08);
     }
 
-    .hero h1 {
+    h1 {
+      text-align: center;
       font-size: 42px;
       margin-bottom: 15px;
     }
 
-    .hero p {
-      font-size: 18px;
+    .description {
+      text-align: center;
       color: #666;
-      margin-bottom: 30px;
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 25px;
     }
 
     .price {
-      font-size: 36px;
+      text-align: center;
+      font-size: 38px;
       font-weight: bold;
       margin-bottom: 25px;
     }
 
     .buy-button {
-      display: inline-block;
+      width: 100%;
       background: #111;
       color: white;
-      padding: 16px 35px;
-      border-radius: 12px;
-      text-decoration: none;
+      border: none;
+      border-radius: 13px;
+      padding: 17px;
       font-size: 18px;
       font-weight: bold;
-      border: none;
       cursor: pointer;
     }
 
+    .buy-button:active {
+      transform: scale(.99);
+    }
+
     .delivery {
-      margin-top: 20px;
+      text-align: center;
       color: #555;
-      font-size: 14px;
+      margin-top: 18px;
+      font-size: 15px;
     }
 
     .checkout {
       display: none;
       margin-top: 30px;
-      text-align: left;
       background: #fafafa;
-      border-radius: 16px;
-      padding: 25px;
+      border-radius: 18px;
+      padding: 22px;
     }
 
     .checkout h2 {
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+      font-size: 27px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 25px 0 15px;
     }
 
     .field {
@@ -89,40 +104,49 @@
     .field label {
       display: block;
       font-weight: bold;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
     .field input {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       border: 1px solid #ddd;
       border-radius: 10px;
       font-size: 16px;
+      background: white;
     }
 
     .pix {
       display: none;
-      margin-top: 25px;
+      margin-top: 30px;
       text-align: center;
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
+    }
+
+    .pix h2 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .pix p {
+      color: #666;
+      font-size: 17px;
+      line-height: 1.4;
     }
 
     #qrcode {
       display: flex;
       justify-content: center;
-      margin: 20px 0;
+      margin: 25px 0;
     }
 
     .pix-code {
       width: 100%;
-      min-height: 100px;
+      min-height: 110px;
       padding: 12px;
       border: 1px solid #ddd;
       border-radius: 10px;
-      resize: none;
       font-size: 13px;
+      resize: none;
     }
 
     .copy-button {
@@ -130,15 +154,16 @@
       background: #111;
       color: white;
       border: none;
-      padding: 13px 20px;
+      padding: 14px 22px;
       border-radius: 10px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .status {
-      margin-top: 18px;
+      margin-top: 20px;
       font-weight: bold;
+      font-size: 17px;
     }
 
     .loading {
@@ -150,54 +175,60 @@
     .error {
       color: #c00;
       margin-top: 15px;
+      font-weight: bold;
     }
 
     .success {
       display: none;
-      margin-top: 25px;
+      margin-top: 30px;
+      padding: 40px 20px;
+      text-align: center;
       background: #f0fff4;
       border: 2px solid #22c55e;
-      border-radius: 16px;
-      padding: 35px 20px;
-      text-align: center;
+      border-radius: 18px;
     }
 
     .success-icon {
-      font-size: 55px;
+      font-size: 60px;
       margin-bottom: 15px;
     }
 
     .success h2 {
-      font-size: 28px;
-      margin-bottom: 12px;
+      font-size: 30px;
+      margin-bottom: 15px;
     }
 
     .success p {
       color: #555;
-      margin: 0;
+      font-size: 17px;
     }
+
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </head>
 
 <body>
 
   <main class="container">
 
-    <section class="hero">
+    <section class="card">
 
-      <h1>Seu Produto</h1>
+      <h1>ARMY Bomb</h1>
 
-      <p>
-        Uma descrição curta e profissional do produto.
-      </p>
-
-      <div class="price">
-        R$ 1,00
+      <div class="description">
+        Produto original ARMY Bomb.
       </div>
 
-      <button class="buy-button" onclick="abrirCheckout()">
+      <div class="price">
+        R$ 350,00
+      </div>
+
+      <button
+        class="buy-button"
+        onclick="abrirCheckout()"
+      >
         COMPRAR AGORA
       </button>
 
@@ -205,49 +236,235 @@
         🚚 Entrega em até 3 dias
       </div>
 
-      <div class="checkout" id="checkout">
 
-        <h2>Dados para pagamento</h2>
+      <!-- ========================= -->
+      <!-- CADASTRO -->
+      <!-- ========================= -->
 
-        <div class="field">
-          <label>Nome completo</label>
-          <input id="name" type="text" placeholder="Seu nome completo">
-        </div>
+      <div
+        class="checkout"
+        id="checkout"
+      >
 
-        <div class="field">
-          <label>CPF</label>
-          <input id="document" type="text" placeholder="Seu CPF">
-        </div>
+        <h2>
+          Dados para entrega
+        </h2>
 
-        <div class="field">
-          <label>Telefone</label>
-          <input id="phone" type="tel" placeholder="(11) 99999-9999">
-        </div>
 
         <div class="field">
-          <label>E-mail</label>
-          <input id="email" type="email" placeholder="seuemail@email.com">
+
+          <label>
+            Nome completo
+          </label>
+
+          <input
+            id="name"
+            type="text"
+            placeholder="Seu nome completo"
+          >
+
         </div>
 
-        <button class="buy-button" onclick="criarPix()">
-          PAGAR R$ 1,00 NO PIX
+
+        <div class="field">
+
+          <label>
+            CPF
+          </label>
+
+          <input
+            id="document"
+            type="text"
+            placeholder="Seu CPF"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Telefone
+          </label>
+
+          <input
+            id="phone"
+            type="tel"
+            placeholder="(11) 99999-9999"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            E-mail
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            placeholder="seuemail@email.com"
+          >
+
+        </div>
+
+
+        <div class="section-title">
+          Endereço de entrega
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            CEP
+          </label>
+
+          <input
+            id="cep"
+            type="text"
+            placeholder="00000-000"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Estado
+          </label>
+
+          <input
+            id="state"
+            type="text"
+            placeholder="Ex.: SP"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Cidade
+          </label>
+
+          <input
+            id="city"
+            type="text"
+            placeholder="Sua cidade"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Bairro
+          </label>
+
+          <input
+            id="neighborhood"
+            type="text"
+            placeholder="Seu bairro"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Rua
+          </label>
+
+          <input
+            id="street"
+            type="text"
+            placeholder="Nome da rua"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Número
+          </label>
+
+          <input
+            id="number"
+            type="text"
+            placeholder="Número"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Complemento
+          </label>
+
+          <input
+            id="complement"
+            type="text"
+            placeholder="Apartamento, casa, etc. (opcional)"
+          >
+
+        </div>
+
+
+        <button
+          class="buy-button"
+          onclick="criarPix()"
+        >
+          PAGAR R$ 350,00 NO PIX
         </button>
 
-        <div class="loading" id="loading">
+
+        <div
+          class="loading"
+          id="loading"
+        >
           Gerando seu PIX...
         </div>
 
-        <div class="error" id="error"></div>
+
+        <div
+          class="error"
+          id="error"
+        ></div>
 
       </div>
 
-      <div class="pix" id="pix">
 
-        <h2>Pagamento via PIX</h2>
+      <!-- ========================= -->
+      <!-- PIX -->
+      <!-- ========================= -->
 
-        <p>Escaneie o QR Code ou copie o código abaixo.</p>
+      <div
+        class="pix"
+        id="pix"
+      >
+
+        <h2>
+          Pagamento via PIX
+        </h2>
+
+        <p>
+          Escaneie o QR Code ou copie o código abaixo.
+        </p>
+
 
         <div id="qrcode"></div>
+
 
         <textarea
           id="pixCode"
@@ -255,17 +472,33 @@
           readonly
         ></textarea>
 
-        <button class="copy-button" onclick="copiarPix()">
+
+        <button
+          class="copy-button"
+          onclick="copiarPix()"
+        >
           COPIAR PIX
         </button>
 
-        <div class="status" id="status">
+
+        <div
+          class="status"
+          id="status"
+        >
           Aguardando pagamento...
         </div>
 
       </div>
 
-      <div class="success" id="success">
+
+      <!-- ========================= -->
+      <!-- SUCESSO -->
+      <!-- ========================= -->
+
+      <div
+        class="success"
+        id="success"
+      >
 
         <div class="success-icon">
           ✅
@@ -279,11 +512,16 @@
           Seu pagamento foi confirmado.
         </p>
 
+        <p style="margin-top:10px;">
+          Seu pedido foi registrado para entrega.
+        </p>
+
       </div>
 
     </section>
 
   </main>
+
 
   <script>
 
@@ -291,32 +529,77 @@
       "https://site-produto-api.onrender.com";
 
     let transactionId = null;
+
     let verificando = false;
+
+
+    // =========================
+    // ABRIR CADASTRO
+    // =========================
 
     function abrirCheckout() {
 
-      document.getElementById("checkout").style.display =
-        "block";
+      document.getElementById("checkout")
+        .style.display = "block";
 
-      document.getElementById("checkout").scrollIntoView({
-        behavior: "smooth"
-      });
+      document.getElementById("checkout")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
 
     }
+
+
+    // =========================
+    // CRIAR PIX
+    // =========================
 
     async function criarPix() {
 
       const name =
-        document.getElementById("name").value.trim();
+        document.getElementById("name")
+          .value.trim();
 
       const documentValue =
-        document.getElementById("document").value.trim();
+        document.getElementById("document")
+          .value.trim();
 
       const phone =
-        document.getElementById("phone").value.trim();
+        document.getElementById("phone")
+          .value.trim();
 
       const email =
-        document.getElementById("email").value.trim();
+        document.getElementById("email")
+          .value.trim();
+
+      const cep =
+        document.getElementById("cep")
+          .value.trim();
+
+      const state =
+        document.getElementById("state")
+          .value.trim();
+
+      const city =
+        document.getElementById("city")
+          .value.trim();
+
+      const neighborhood =
+        document.getElementById("neighborhood")
+          .value.trim();
+
+      const street =
+        document.getElementById("street")
+          .value.trim();
+
+      const number =
+        document.getElementById("number")
+          .value.trim();
+
+      const complement =
+        document.getElementById("complement")
+          .value.trim();
+
 
       const error =
         document.getElementById("error");
@@ -324,42 +607,91 @@
       const loading =
         document.getElementById("loading");
 
+
       error.textContent = "";
 
-      if (!name || !documentValue || !phone || !email) {
+
+      if (
+        !name ||
+        !documentValue ||
+        !phone ||
+        !email ||
+        !cep ||
+        !state ||
+        !city ||
+        !neighborhood ||
+        !street ||
+        !number
+      ) {
 
         error.textContent =
-          "Preencha todos os dados para continuar.";
+          "Preencha todos os dados obrigatórios para continuar.";
 
         return;
+
       }
+
 
       loading.style.display = "block";
 
+
       try {
 
-        const response = await fetch(
-          `${API_URL}/api/create-pix`,
-          {
-            method: "POST",
+        const response =
+          await fetch(
+            `${API_URL}/api/create-pix`,
+            {
 
-            headers: {
-              "Content-Type": "application/json"
-            },
+              method: "POST",
 
-            body: JSON.stringify({
-              name,
-              document: documentValue,
-              phone,
-              email
-            })
-          }
-        );
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+
+                name,
+
+                document:
+                  documentValue,
+
+                phone,
+
+                email,
+
+                address: {
+
+                  cep,
+
+                  state,
+
+                  city,
+
+                  neighborhood,
+
+                  street,
+
+                  number,
+
+                  complement
+
+                }
+
+              })
+
+            }
+          );
+
 
         const data =
           await response.json();
 
-        if (!response.ok || !data.success) {
+
+        if (
+          !response.ok ||
+          !data.success
+        ) {
 
           throw new Error(
             data.message ||
@@ -368,12 +700,15 @@
 
         }
 
+
         transactionId =
           data.idTransaction;
+
 
         mostrarPix(
           data.paymentCode
         );
+
 
       } catch (err) {
 
@@ -385,58 +720,86 @@
 
       } finally {
 
-        loading.style.display = "none";
+        loading.style.display =
+          "none";
 
       }
 
     }
+
+
+    // =========================
+    // MOSTRAR PIX
+    // =========================
 
     function mostrarPix(paymentCode) {
 
       document.getElementById("checkout")
         .style.display = "none";
 
+
       document.getElementById("pix")
         .style.display = "block";
+
 
       document.getElementById("success")
         .style.display = "none";
 
+
       document.getElementById("pixCode")
         .value = paymentCode;
+
 
       const qr =
         document.getElementById("qrcode");
 
+
       qr.innerHTML = "";
 
+
       new QRCode(qr, {
+
         text: paymentCode,
+
         width: 220,
+
         height: 220
+
       });
+
 
       document.getElementById("pix")
         .scrollIntoView({
           behavior: "smooth"
         });
 
+
       verificarPagamento();
 
     }
 
+
+    // =========================
+    // COPIAR PIX
+    // =========================
+
     async function copiarPix() {
 
       const code =
-        document.getElementById("pixCode").value;
+        document.getElementById("pixCode")
+          .value;
+
 
       try {
 
-        await navigator.clipboard.writeText(code);
+        await navigator.clipboard
+          .writeText(code);
+
 
         document.getElementById("status")
           .textContent =
           "PIX copiado! Faça o pagamento.";
+
 
       } catch {
 
@@ -448,37 +811,57 @@
 
     }
 
+
+    // =========================
+    // VERIFICAR STATUS
+    // =========================
+
     function pagamentoFoiPago(data) {
 
       if (!data) {
         return false;
       }
 
-      const possiveisStatus = [];
+
+      const encontrados = [];
+
 
       function procurar(obj) {
 
-        if (!obj || typeof obj !== "object") {
+        if (
+          !obj ||
+          typeof obj !== "object"
+        ) {
           return;
         }
 
-        for (const key of Object.keys(obj)) {
 
-          const value = obj[key];
+        for (
+          const key of Object.keys(obj)
+        ) {
+
+          const value =
+            obj[key];
+
 
           if (
             typeof value === "string" &&
             (
-              key.toLowerCase().includes("status") ||
-              key.toLowerCase().includes("state")
+              key
+                .toLowerCase()
+                .includes("status") ||
+              key
+                .toLowerCase()
+                .includes("state")
             )
           ) {
 
-            possiveisStatus.push(
+            encontrados.push(
               value.toUpperCase()
             );
 
           }
+
 
           if (
             typeof value === "object" &&
@@ -493,37 +876,58 @@
 
       }
 
+
       procurar(data);
 
-      const statusPago = [
+
+      const statusPagos = [
+
         "PAID",
+
         "PAID_OUT",
+
         "PAYMENT_COMPLETED",
+
         "COMPLETED",
+
         "SUCCESS",
+
         "SUCCEEDED",
+
         "APPROVED",
+
         "APROVADO",
+
         "PAGO"
+
       ];
 
-      return possiveisStatus.some(
+
+      return encontrados.some(
         status =>
-          statusPago.includes(status)
+          statusPagos.includes(status)
       );
 
     }
+
+
+    // =========================
+    // SUCESSO
+    // =========================
 
     function mostrarSucesso() {
 
       document.getElementById("pix")
         .style.display = "none";
 
+
       document.getElementById("checkout")
         .style.display = "none";
 
+
       document.getElementById("success")
         .style.display = "block";
+
 
       document.getElementById("success")
         .scrollIntoView({
@@ -532,13 +936,25 @@
 
     }
 
+
+    // =========================
+    // CONSULTAR ORBIT
+    // =========================
+
     async function verificarPagamento() {
 
-      if (!transactionId || verificando) {
+      if (!transactionId) {
         return;
       }
 
+
+      if (verificando) {
+        return;
+      }
+
+
       verificando = true;
+
 
       try {
 
@@ -547,13 +963,16 @@
             `${API_URL}/api/check-pix/${encodeURIComponent(transactionId)}`
           );
 
+
         const data =
           await response.json();
+
 
         console.log(
           "Resposta da Orbit:",
           data
         );
+
 
         if (
           response.ok &&
@@ -569,6 +988,7 @@
 
         }
 
+
       } catch (error) {
 
         console.error(
@@ -578,7 +998,9 @@
 
       }
 
+
       verificando = false;
+
 
       setTimeout(
         verificarPagamento,
@@ -590,4 +1012,5 @@
   </script>
 
 </body>
+
 </html>
