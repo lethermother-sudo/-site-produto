@@ -72,7 +72,97 @@
       color: #555;
       font-size: 14px;
     }
+
+    .checkout {
+      display: none;
+      margin-top: 30px;
+      text-align: left;
+      background: #fafafa;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .checkout h2 {
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    .pix {
+      display: none;
+      margin-top: 25px;
+      text-align: center;
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    .pix h2 {
+      margin-bottom: 15px;
+    }
+
+    #qrcode {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .pix-code {
+      width: 100%;
+      min-height: 100px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      resize: none;
+      font-size: 13px;
+    }
+
+    .copy-button {
+      margin-top: 12px;
+      background: #111;
+      color: white;
+      border: none;
+      padding: 13px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .status {
+      margin-top: 18px;
+      font-weight: bold;
+    }
+
+    .loading {
+      display: none;
+      margin-top: 15px;
+      color: #666;
+    }
+
+    .error {
+      color: #c00;
+      margin-top: 15px;
+    }
   </style>
+
+  <!-- Biblioteca para gerar QR Code -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body>
@@ -88,10 +178,10 @@
       </p>
 
       <div class="price">
-        R$ 00,00
+        R$ 350,00
       </div>
 
-      <button class="buy-button" onclick="comprar()">
+      <button class="buy-button" onclick="abrirCheckout()">
         COMPRAR AGORA
       </button>
 
@@ -99,14 +189,257 @@
         🚚 Entrega em até 3 dias
       </div>
 
+      <div class="checkout" id="checkout">
+
+        <h2>Dados para pagamento</h2>
+
+        <div class="field">
+          <label>Nome completo</label>
+          <input id="name" type="text" placeholder="Seu nome completo">
+        </div>
+
+        <div class="field">
+          <label>CPF</label>
+          <input id="document" type="text" placeholder="Seu CPF">
+        </div>
+
+        <div class="field">
+          <label>Telefone</label>
+          <input id="phone" type="tel" placeholder="(11) 99999-9999">
+        </div>
+
+        <div class="field">
+          <label>E-mail</label>
+          <input id="email" type="email" placeholder="seuemail@email.com">
+        </div>
+
+        <button class="buy-button" onclick="criarPix()">
+          PAGAR R$ 350,00 NO PIX
+        </button>
+
+        <div class="loading" id="loading">
+          Gerando seu PIX...
+        </div>
+
+        <div class="error" id="error"></div>
+
+      </div>
+
+      <div class="pix" id="pix">
+
+        <h2>Pagamento via PIX</h2>
+
+        <p>Escaneie o QR Code ou copie o código abaixo.</p>
+
+        <div id="qrcode"></div>
+
+        <textarea
+          id="pixCode"
+          class="pix-code"
+          readonly
+        ></textarea>
+
+        <button class="copy-button" onclick="copiarPix()">
+          COPIAR PIX
+        </button>
+
+        <div class="status" id="status">
+          Aguardando pagamento...
+        </div>
+
+      </div>
+
     </section>
 
   </main>
 
   <script>
-    function comprar() {
-      alert("Checkout será conectado à Orbit.");
+
+    const API_URL = "https://site-produto-api.onrender.com";
+
+    let transactionId = null;
+
+    function abrirCheckout() {
+      document.getElementById("checkout").style.display = "block";
+
+      document.getElementById("checkout").scrollIntoView({
+        behavior: "smooth"
+      });
     }
+
+    async function criarPix() {
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const documentValue =
+        document.getElementById("document").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const error =
+        document.getElementById("error");
+
+      const loading =
+        document.getElementById("loading");
+
+      error.textContent = "";
+
+      if (!name || !documentValue || !phone || !email) {
+        error.textContent =
+          "Preencha todos os dados para continuar.";
+
+        return;
+      }
+
+      loading.style.display = "block";
+
+      try {
+
+        const response = await fetch(
+          `${API_URL}/api/create-pix`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+              name,
+              document: documentValue,
+              phone,
+              email
+            })
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(
+            data.message || "Não foi possível criar o PIX."
+          );
+        }
+
+        transactionId = data.idTransaction;
+
+        mostrarPix(data.paymentCode);
+
+      } catch (err) {
+
+        console.error(err);
+
+        error.textContent =
+          err.message ||
+          "Erro ao criar o pagamento.";
+
+      } finally {
+
+        loading.style.display = "none";
+
+      }
+    }
+
+    function mostrarPix(paymentCode) {
+
+      document.getElementById("checkout").style.display =
+        "none";
+
+      document.getElementById("pix").style.display =
+        "block";
+
+      document.getElementById("pixCode").value =
+        paymentCode;
+
+      const qr =
+        document.getElementById("qrcode");
+
+      qr.innerHTML = "";
+
+      new QRCode(qr, {
+        text: paymentCode,
+        width: 220,
+        height: 220
+      });
+
+      document.getElementById("pix").scrollIntoView({
+        behavior: "smooth"
+      });
+
+      verificarPagamento();
+    }
+
+    async function copiarPix() {
+
+      const code =
+        document.getElementById("pixCode").value;
+
+      try {
+
+        await navigator.clipboard.writeText(code);
+
+        document.getElementById("status").textContent =
+          "PIX copiado! Faça o pagamento.";
+
+      } catch {
+
+        document.getElementById("status").textContent =
+          "Selecione e copie o código PIX.";
+
+      }
+    }
+
+    async function verificarPagamento() {
+
+      if (!transactionId) return;
+
+      try {
+
+        const response = await fetch(
+          `${API_URL}/api/check-pix/${encodeURIComponent(transactionId)}`
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+          const transaction =
+            data.transaction;
+
+          const status =
+            Array.isArray(transaction)
+              ? transaction[0]?.status
+              : transaction.status;
+
+          if (
+            status === "PAID_OUT" ||
+            status === "paid"
+          ) {
+
+            document.getElementById("status").textContent =
+              "✅ Pagamento aprovado!";
+
+            return;
+          }
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Erro verificando pagamento:",
+          error
+        );
+
+      }
+
+      setTimeout(verificarPagamento, 5000);
+    }
+
   </script>
 
 </body>
