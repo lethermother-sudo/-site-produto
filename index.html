@@ -63,10 +63,6 @@
       cursor: pointer;
     }
 
-    .buy-button:hover {
-      opacity: .85;
-    }
-
     .delivery {
       margin-top: 20px;
       color: #555;
@@ -113,10 +109,6 @@
       padding: 25px;
     }
 
-    .pix h2 {
-      margin-bottom: 15px;
-    }
-
     #qrcode {
       display: flex;
       justify-content: center;
@@ -159,6 +151,31 @@
       color: #c00;
       margin-top: 15px;
     }
+
+    .success {
+      display: none;
+      margin-top: 25px;
+      background: #f0fff4;
+      border: 2px solid #22c55e;
+      border-radius: 16px;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    .success h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .success p {
+      color: #555;
+      margin: 0;
+    }
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -167,6 +184,7 @@
 <body>
 
   <main class="container">
+
     <section class="hero">
 
       <h1>Seu Produto</h1>
@@ -231,7 +249,11 @@
 
         <div id="qrcode"></div>
 
-        <textarea id="pixCode" class="pix-code" readonly></textarea>
+        <textarea
+          id="pixCode"
+          class="pix-code"
+          readonly
+        ></textarea>
 
         <button class="copy-button" onclick="copiarPix()">
           COPIAR PIX
@@ -243,91 +265,148 @@
 
       </div>
 
+      <div class="success" id="success">
+
+        <div class="success-icon">
+          ✅
+        </div>
+
+        <h2>
+          Pagamento concluído com sucesso!
+        </h2>
+
+        <p>
+          Seu pagamento foi confirmado.
+        </p>
+
+      </div>
+
     </section>
+
   </main>
 
   <script>
-    const API_URL = "https://site-produto-api.onrender.com";
+
+    const API_URL =
+      "https://site-produto-api.onrender.com";
 
     let transactionId = null;
+    let verificando = false;
 
     function abrirCheckout() {
-      document.getElementById("checkout").style.display = "block";
+
+      document.getElementById("checkout").style.display =
+        "block";
 
       document.getElementById("checkout").scrollIntoView({
         behavior: "smooth"
       });
+
     }
 
     async function criarPix() {
-      const name = document.getElementById("name").value.trim();
-      const documentValue = document.getElementById("document").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const email = document.getElementById("email").value.trim();
 
-      const error = document.getElementById("error");
-      const loading = document.getElementById("loading");
+      const name =
+        document.getElementById("name").value.trim();
+
+      const documentValue =
+        document.getElementById("document").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const error =
+        document.getElementById("error");
+
+      const loading =
+        document.getElementById("loading");
 
       error.textContent = "";
 
       if (!name || !documentValue || !phone || !email) {
-        error.textContent = "Preencha todos os dados para continuar.";
+
+        error.textContent =
+          "Preencha todos os dados para continuar.";
+
         return;
       }
 
       loading.style.display = "block";
 
       try {
-        const response = await fetch(`${API_URL}/api/create-pix`, {
-          method: "POST",
 
-          headers: {
-            "Content-Type": "application/json"
-          },
+        const response = await fetch(
+          `${API_URL}/api/create-pix`,
+          {
+            method: "POST",
 
-          body: JSON.stringify({
-            name,
-            document: documentValue,
-            phone,
-            email
-          })
-        });
+            headers: {
+              "Content-Type": "application/json"
+            },
 
-        const data = await response.json();
+            body: JSON.stringify({
+              name,
+              document: documentValue,
+              phone,
+              email
+            })
+          }
+        );
+
+        const data =
+          await response.json();
 
         if (!response.ok || !data.success) {
+
           throw new Error(
-            data.message || "Não foi possível criar o PIX."
+            data.message ||
+            "Não foi possível criar o PIX."
           );
+
         }
 
-        transactionId = data.idTransaction;
+        transactionId =
+          data.idTransaction;
 
-        mostrarPix(data.paymentCode);
+        mostrarPix(
+          data.paymentCode
+        );
 
       } catch (err) {
 
         console.error(err);
 
         error.textContent =
-          err.message || "Erro ao criar o pagamento.";
+          err.message ||
+          "Erro ao criar o pagamento.";
 
       } finally {
 
         loading.style.display = "none";
 
       }
+
     }
 
     function mostrarPix(paymentCode) {
 
-      document.getElementById("checkout").style.display = "none";
+      document.getElementById("checkout")
+        .style.display = "none";
 
-      document.getElementById("pix").style.display = "block";
+      document.getElementById("pix")
+        .style.display = "block";
 
-      document.getElementById("pixCode").value = paymentCode;
+      document.getElementById("success")
+        .style.display = "none";
 
-      const qr = document.getElementById("qrcode");
+      document.getElementById("pixCode")
+        .value = paymentCode;
+
+      const qr =
+        document.getElementById("qrcode");
 
       qr.innerHTML = "";
 
@@ -337,11 +416,13 @@
         height: 220
       });
 
-      document.getElementById("pix").scrollIntoView({
-        behavior: "smooth"
-      });
+      document.getElementById("pix")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
 
       verificarPagamento();
+
     }
 
     async function copiarPix() {
@@ -353,47 +434,139 @@
 
         await navigator.clipboard.writeText(code);
 
-        document.getElementById("status").textContent =
+        document.getElementById("status")
+          .textContent =
           "PIX copiado! Faça o pagamento.";
 
       } catch {
 
-        document.getElementById("status").textContent =
+        document.getElementById("status")
+          .textContent =
           "Selecione e copie o código PIX.";
 
       }
+
+    }
+
+    function pagamentoFoiPago(data) {
+
+      if (!data) {
+        return false;
+      }
+
+      const possiveisStatus = [];
+
+      function procurar(obj) {
+
+        if (!obj || typeof obj !== "object") {
+          return;
+        }
+
+        for (const key of Object.keys(obj)) {
+
+          const value = obj[key];
+
+          if (
+            typeof value === "string" &&
+            (
+              key.toLowerCase().includes("status") ||
+              key.toLowerCase().includes("state")
+            )
+          ) {
+
+            possiveisStatus.push(
+              value.toUpperCase()
+            );
+
+          }
+
+          if (
+            typeof value === "object" &&
+            value !== null
+          ) {
+
+            procurar(value);
+
+          }
+
+        }
+
+      }
+
+      procurar(data);
+
+      const statusPago = [
+        "PAID",
+        "PAID_OUT",
+        "PAYMENT_COMPLETED",
+        "COMPLETED",
+        "SUCCESS",
+        "SUCCEEDED",
+        "APPROVED",
+        "APROVADO",
+        "PAGO"
+      ];
+
+      return possiveisStatus.some(
+        status =>
+          statusPago.includes(status)
+      );
+
+    }
+
+    function mostrarSucesso() {
+
+      document.getElementById("pix")
+        .style.display = "none";
+
+      document.getElementById("checkout")
+        .style.display = "none";
+
+      document.getElementById("success")
+        .style.display = "block";
+
+      document.getElementById("success")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
     }
 
     async function verificarPagamento() {
 
-      if (!transactionId) return;
+      if (!transactionId || verificando) {
+        return;
+      }
+
+      verificando = true;
 
       try {
 
-        const response = await fetch(
-          `${API_URL}/api/check-pix/${encodeURIComponent(transactionId)}`
+        const response =
+          await fetch(
+            `${API_URL}/api/check-pix/${encodeURIComponent(transactionId)}`
+          );
+
+        const data =
+          await response.json();
+
+        console.log(
+          "Resposta da Orbit:",
+          data
         );
 
-        const data = await response.json();
+        if (
+          response.ok &&
+          data.success &&
+          pagamentoFoiPago(data)
+        ) {
 
-        if (data.success) {
+          mostrarSucesso();
 
-          const transaction = data.transaction;
+          verificando = false;
 
-          const status = Array.isArray(transaction)
-            ? transaction[0]?.status
-            : transaction.status;
+          return;
 
-          if (
-            status === "PAID_OUT" ||
-            status === "paid"
-          ) {
-
-            document.getElementById("status").textContent =
-              "✅ Pagamento aprovado!";
-
-            return;
-          }
         }
 
       } catch (error) {
@@ -405,8 +578,15 @@
 
       }
 
-      setTimeout(verificarPagamento, 5000);
+      verificando = false;
+
+      setTimeout(
+        verificarPagamento,
+        5000
+      );
+
     }
+
   </script>
 
 </body>
