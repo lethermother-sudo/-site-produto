@@ -190,17 +190,74 @@ font-size:12px;
 color:#ddd;
 }
 
+#status{
+margin-top:12px;
+}
+
+.success-icon{
+width:90px;
+height:90px;
+margin:0 auto 20px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:48px;
+background:#0b2d1d;
+border:2px solid #42e995;
+box-shadow:0 0 35px #36e58a55;
+}
+
 #success{
 display:none;
 text-align:center;
 border:1px solid #38dc89;
-background:#081a12;
-padding:35px;
+background:
+radial-gradient(
+circle at top,
+#123b27 0%,
+#081a12 55%,
+#06110c 100%
+);
+padding:42px 28px;
 border-radius:20px;
+box-shadow:0 15px 45px #0008;
 }
 
 #success h2{
 color:#62efa5;
+font-size:28px;
+margin-bottom:10px;
+}
+
+.success-title{
+font-size:15px;
+color:#fff;
+margin-bottom:22px;
+}
+
+.success-order{
+background:#06140d;
+border:1px solid #1c6844;
+border-radius:14px;
+padding:16px;
+margin-top:22px;
+color:#c9f9df;
+font-size:14px;
+line-height:1.6;
+}
+
+.success-delivery{
+margin-top:20px;
+font-size:16px;
+font-weight:bold;
+color:#fff;
+}
+
+.success-note{
+margin-top:10px;
+font-size:13px;
+color:#9fe7be;
 }
 
 footer{
@@ -236,6 +293,16 @@ grid-column:auto;
 border-radius:16px;
 }
 
+#success{
+padding:32px 18px;
+}
+
+.success-icon{
+width:78px;
+height:78px;
+font-size:40px;
+}
+
 }
 </style>
 </head>
@@ -255,6 +322,7 @@ style="display:block;width:100%;height:auto;"
 </a>
 
 </section>
+
 <section class="section grid">
 
 <div class="card">
@@ -289,7 +357,6 @@ R$ 350,00
 </p>
 
 </div>
-
 
 <div class="card" id="comprar">
 
@@ -396,7 +463,6 @@ Selecione
 
 </div>
 
-
 <div id="pix">
 
 <span class="badge">
@@ -418,28 +484,39 @@ Após o pagamento, confirmaremos automaticamente.
 <p
 id="status"
 class="text"
-style="margin-top:12px"
 >
 Aguardando confirmação do pagamento...
 </p>
 
 </div>
 
-
 <div id="success">
 
+<div class="success-icon">
+✓
+</div>
+
 <h2>
-✅ Pagamento concluído com sucesso!
+Pagamento concluído!
 </h2>
 
-<p class="text">
-Seu pagamento foi confirmado.
+<p class="success-title">
+✅ Seu pagamento foi confirmado com sucesso.
 </p>
 
-<br>
+<div class="success-order">
 
-<p>
+<strong>ARMY BOMB</strong><br>
+Pagamento confirmado via PIX
+
+</div>
+
+<p class="success-delivery">
 🚚 Seu pedido será enviado em até 3 dias.
+</p>
+
+<p class="success-note">
+Obrigado pela sua compra! 💜
 </p>
 
 </div>
@@ -447,7 +524,6 @@ Seu pagamento foi confirmado.
 </div>
 
 </section>
-
 
 <section class="section card">
 
@@ -485,7 +561,6 @@ GARANTIA DE QUALIDADE
 
 </section>
 
-
 <footer>
 
 Compra segura via PIX • Seus dados protegidos • Entrega em até 3 dias
@@ -494,12 +569,10 @@ Compra segura via PIX • Seus dados protegidos • Entrega em até 3 dias
 
 </div>
 
-
 <script>
 
 const API =
 "https://site-produto-api.onrender.com";
-
 
 const form =
 document.getElementById("form");
@@ -519,7 +592,6 @@ document.getElementById("submitBtn");
 const error =
 document.getElementById("error");
 
-
 function valor(id){
 
 return document
@@ -529,14 +601,12 @@ return document
 
 }
 
-
 function pagamentoFoiPago(data){
 
 if(!data)
 return false;
 
 const encontrados=[];
-
 
 function procurar(obj){
 
@@ -579,9 +649,7 @@ procurar(value);
 
 }
 
-
 procurar(data);
-
 
 const pagos=[
 "PAID",
@@ -595,13 +663,11 @@ const pagos=[
 "PAGO"
 ];
 
-
 return encontrados.some(
 status=>pagos.includes(status)
 );
 
 }
-
 
 function mostrarSucesso(){
 
@@ -615,7 +681,6 @@ behavior:"smooth"
 });
 
 }
-
 
 async function verificarPagamento(
 transactionId
@@ -655,7 +720,6 @@ return false;
 
 }
 
-
 function acompanharPagamento(
 transactionId
 ){
@@ -690,7 +754,6 @@ intervalo
 
 }
 
-
 form.addEventListener(
 "submit",
 async function(event){
@@ -703,7 +766,6 @@ button.disabled=true;
 
 button.textContent=
 "GERANDO PIX...";
-
 
 const address={
 
@@ -729,7 +791,6 @@ complement:
 valor("complement")
 
 };
-
 
 try{
 
@@ -767,10 +828,8 @@ address
 
 });
 
-
 const data =
 await response.json();
-
 
 if(
 !response.ok ||
@@ -784,22 +843,18 @@ data.message ||
 
 }
 
-
 checkout.style.display=
 "none";
 
 pix.style.display=
 "block";
 
-
 const code =
 data.paymentCode || "";
-
 
 document.getElementById(
 "pixcode"
 ).textContent=code;
-
 
 new QRCode(
 document.getElementById(
@@ -816,11 +871,9 @@ height:240
 }
 );
 
-
 acompanharPagamento(
 data.idTransaction
 );
-
 
 window.scrollTo({
 
@@ -829,7 +882,6 @@ top:pix.offsetTop,
 behavior:"smooth"
 
 });
-
 
 }catch(e){
 
