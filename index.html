@@ -2,12 +2,17 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ARMY BOMB | PIX</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
 
 body{
 font-family:Arial,Helvetica,sans-serif;
@@ -18,176 +23,67 @@ color:#fff;
 .container{
 max-width:1100px;
 margin:auto;
-padding:14px;
+padding:12px;
 }
 
 .hero{
-position:relative;
-min-height:520px;
 overflow:hidden;
-border-radius:24px;
-border:1px solid #71269a;
-background:
-radial-gradient(circle at 72% 55%,#d73cffaa 0,transparent 24%),
-radial-gradient(circle at 25% 65%,#7924bd66 0,transparent 35%),
-linear-gradient(135deg,#09040e,#21082f,#08040d);
-box-shadow:0 0 70px #a72ee044;
+border-radius:22px;
+border:1px solid #70268f;
+box-shadow:0 0 60px #9d2ee544;
+background:#09060e;
 }
 
-.hero:before{
-content:"";
-position:absolute;
-inset:0;
-background:
-radial-gradient(circle at 10% 20%,#b84cff55 0 2px,transparent 3px),
-radial-gradient(circle at 30% 30%,#fff 0 1px,transparent 2px),
-radial-gradient(circle at 50% 15%,#d65cff 0 2px,transparent 3px),
-radial-gradient(circle at 80% 25%,#fff 0 2px,transparent 3px),
-radial-gradient(circle at 90% 60%,#c04cff 0 2px,transparent 3px);
-opacity:.55;
+.hero img{
+display:block;
+width:100%;
+height:auto;
 }
 
-.hero-content{
-position:relative;
-z-index:2;
-padding:50px;
-width:55%;
-}
-
-.official{
-font-size:18px;
-letter-spacing:6px;
-font-weight:bold;
-color:#e58aff;
-margin-bottom:28px;
-}
-
-.hero h1{
-font-size:78px;
-line-height:.82;
-font-weight:900;
-text-transform:uppercase;
-}
-
-.hero h1 span{
-color:#d53cff;
-}
-
-.hero p{
-font-size:20px;
-line-height:1.5;
-color:#ddd;
-margin-top:28px;
-}
-
-.price{
-font-size:44px;
-font-weight:900;
-color:#e16cff;
-margin-top:25px;
-}
-
-.buy{
-display:inline-block;
-margin-top:22px;
-padding:18px 30px;
-border-radius:14px;
-background:linear-gradient(90deg,#8d24d7,#e84dff);
-color:white;
-text-decoration:none;
-font-size:18px;
-font-weight:900;
-box-shadow:0 10px 35px #bc38e866;
-}
-
-.bomb{
-position:absolute;
-right:9%;
-bottom:0;
-width:280px;
-height:430px;
-z-index:2;
-}
-
-.globe{
-position:absolute;
-top:0;
-left:30px;
-width:240px;
-height:240px;
-border-radius:50%;
-background:radial-gradient(circle at 40% 35%,#fff,#e5cfff 22%,#d45bff 52%,#7020a1 100%);
-box-shadow:0 0 30px #ed9cff,0 0 100px #9e32dd;
-}
-
-.logo{
-position:absolute;
-top:68px;
-left:87px;
-font-size:80px;
-color:#fff;
-font-weight:bold;
-z-index:3;
-}
-
-.handle{
-position:absolute;
-top:205px;
-left:90px;
-width:100px;
-height:225px;
-border-radius:0 0 28px 28px;
-background:linear-gradient(90deg,#050505,#29272c,#050505);
-box-shadow:0 0 20px #000;
-}
-
-.button{
-width:25px;
-height:25px;
-border:3px solid #777;
-border-radius:50%;
-margin:45px auto;
-}
-
-.box{
-position:absolute;
-right:-30px;
-bottom:35px;
-width:150px;
-height:300px;
-background:linear-gradient(120deg,#090909,#242027,#050505);
-border-radius:3px;
-box-shadow:15px 15px 35px #000;
-}
-
-.box:after{
-content:"BTS";
-position:absolute;
-top:125px;
-left:45px;
-font-size:30px;
-font-weight:bold;
-color:#b96aff;
+.section{
+margin-top:18px;
 }
 
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:18px;
-margin-top:18px;
 }
 
 .card{
 background:linear-gradient(145deg,#17101f,#0b0910);
 border:1px solid #452052;
 border-radius:20px;
-padding:25px;
+padding:24px;
 box-shadow:0 15px 40px #0008;
 }
 
+.badge{
+display:inline-block;
+border:1px solid #d55cff;
+color:#e99aff;
+padding:6px 11px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+h1{
+font-size:38px;
+margin-bottom:7px;
+}
+
 h2{
-font-size:28px;
+font-size:25px;
 margin-bottom:12px;
+}
+
+.price{
+font-size:42px;
+font-weight:900;
+color:#df68ff;
+margin:15px 0;
 }
 
 .text{
@@ -195,36 +91,24 @@ color:#cfc4d6;
 line-height:1.55;
 }
 
-.badge{
-display:inline-block;
-padding:7px 12px;
-border:1px solid #dc62ff;
-border-radius:20px;
-font-size:11px;
-font-weight:bold;
-color:#e995ff;
-margin-bottom:10px;
-}
-
 .features{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:10px;
-margin-top:20px;
 }
 
 .feature{
-border:1px solid #4a2458;
+border:1px solid #472253;
 border-radius:14px;
-padding:16px 8px;
+padding:15px 8px;
 text-align:center;
-color:#ddd;
+color:#eee;
 }
 
-.feature strong{
+.feature b{
 display:block;
-color:#e477ff;
-font-size:12px;
+color:#df72ff;
+font-size:11px;
 margin-top:7px;
 }
 
@@ -241,18 +125,20 @@ color:#ddd;
 margin-bottom:6px;
 }
 
-input,select{
+input,
+select{
 width:100%;
-padding:14px;
+padding:13px;
 border-radius:10px;
-border:1px solid #4b3054;
+border:1px solid #493052;
 background:#09070d;
 color:#fff;
 outline:none;
 }
 
-input:focus,select:focus{
-border-color:#d75cff;
+input:focus,
+select:focus{
+border-color:#d85cff;
 }
 
 .full{
@@ -262,15 +148,15 @@ grid-column:1/-1;
 button{
 width:100%;
 padding:17px;
-margin-top:18px;
+margin-top:17px;
 border:0;
 border-radius:13px;
-background:linear-gradient(90deg,#8c24d7,#e34cff);
+background:linear-gradient(90deg,#8d25d7,#e34cff);
 color:#fff;
 font-size:18px;
 font-weight:900;
 cursor:pointer;
-box-shadow:0 10px 30px #ad30e855;
+box-shadow:0 10px 30px #a82de855;
 }
 
 button:disabled{
@@ -290,26 +176,26 @@ margin:22px;
 
 #qrcode img{
 background:#fff;
-padding:12px;
+padding:11px;
 border-radius:12px;
 }
 
 .pixcode{
 background:#08070b;
-border:1px solid #482654;
-padding:14px;
+border:1px solid #482653;
 border-radius:10px;
-font-size:12px;
+padding:13px;
 word-break:break-all;
+font-size:12px;
 color:#ddd;
 }
 
 #success{
 display:none;
 text-align:center;
-padding:40px;
-border:1px solid #39dc8b;
+border:1px solid #38dc89;
 background:#081a12;
+padding:35px;
 border-radius:20px;
 }
 
@@ -319,39 +205,15 @@ color:#62efa5;
 
 footer{
 text-align:center;
-padding:25px;
+padding:24px;
 font-size:12px;
 color:#9d91a3;
 }
 
-@media(max-width:750px){
+@media(max-width:760px){
 
 .container{
 padding:9px;
-}
-
-.hero{
-min-height:700px;
-}
-
-.hero-content{
-width:100%;
-padding:35px 25px;
-}
-
-.hero h1{
-font-size:55px;
-}
-
-.hero p{
-font-size:17px;
-}
-
-.bomb{
-right:50%;
-transform:translateX(50%);
-bottom:5px;
-width:260px;
 }
 
 .grid{
@@ -370,8 +232,8 @@ grid-template-columns:1fr;
 grid-column:auto;
 }
 
-.price{
-font-size:38px;
+.hero{
+border-radius:16px;
 }
 
 }
@@ -384,59 +246,24 @@ font-size:38px;
 
 <section class="hero">
 
-<div class="hero-content">
-
-<div class="official">
-BTS • OFFICIAL LIGHT STICK
-</div>
-
-<h1>
-ARMY<br>
-<span>BOMB</span>
-</h1>
-
-<p>
-Leve a energia dos shows do BTS para onde você quiser.
-</p>
-
-<div class="price">
-R$ 350,00
-</div>
-
-<a href="#comprar" class="buy">
-💠 COMPRAR AGORA NO PIX
-</a>
-
-</div>
-
-<div class="bomb">
-
-<div class="globe">
-<div class="logo">◆</div>
-</div>
-
-<div class="handle">
-<div class="button"></div>
-</div>
-
-<div class="box"></div>
-
-</div>
+<img
+alt="ARMY BOMB"
+src="arte-army-bomb.png"
+>
 
 </section>
 
+<section class="section grid">
 
-<div class="grid">
-
-<section class="card">
+<div class="card">
 
 <span class="badge">
 BTS OFFICIAL
 </span>
 
-<h2>
+<h1>
 ARMY BOMB
-</h2>
+</h1>
 
 <h2>
 Light Stick Oficial do BTS
@@ -459,10 +286,10 @@ R$ 350,00
 🔒 Pagamento 100% seguro via PIX
 </p>
 
-</section>
+</div>
 
 
-<section class="card" id="comprar">
+<div class="card" id="comprar">
 
 <div id="checkout">
 
@@ -505,8 +332,13 @@ Dados para entrega
 
 <div>
 <label>Estado</label>
+
 <select id="state" required>
-<option value="">Selecione</option>
+
+<option value="">
+Selecione
+</option>
+
 <option>SP</option>
 <option>RJ</option>
 <option>MG</option>
@@ -520,7 +352,9 @@ Dados para entrega
 <option>GO</option>
 <option>DF</option>
 <option>Outro</option>
+
 </select>
+
 </div>
 
 <div>
@@ -550,7 +384,7 @@ Dados para entrega
 
 </div>
 
-<button id="submitBtn">
+<button id="submitBtn" type="submit">
 💠 PAGAR R$ 350,00 NO PIX
 </button>
 
@@ -579,7 +413,11 @@ Após o pagamento, confirmaremos automaticamente.
 
 <div id="pixcode" class="pixcode"></div>
 
-<p id="status" class="text">
+<p
+id="status"
+class="text"
+style="margin-top:12px"
+>
 Aguardando confirmação do pagamento...
 </p>
 
@@ -604,41 +442,52 @@ Seu pagamento foi confirmado.
 
 </div>
 
-</section>
-
 </div>
 
+</section>
 
-<section class="card">
+
+<section class="section card">
 
 <div class="features">
 
 <div class="feature">
 💎
-<strong>PRODUTO OFICIAL BTS</strong>
+<b>
+PRODUTO OFICIAL BTS
+</b>
 </div>
 
 <div class="feature">
 📦
-<strong>LACRADO NA CAIXA</strong>
+<b>
+LACRADO NA CAIXA
+</b>
 </div>
 
 <div class="feature">
 🚚
-<strong>ENTREGA EM ATÉ 3 DIAS</strong>
+<b>
+ENTREGA EM ATÉ 3 DIAS
+</b>
 </div>
 
 <div class="feature">
 🛡️
-<strong>GARANTIA DE QUALIDADE</strong>
+<b>
+GARANTIA DE QUALIDADE
+</b>
 </div>
 
 </div>
 
 </section>
 
+
 <footer>
+
 Compra segura via PIX • Seus dados protegidos • Entrega em até 3 dias
+
 </footer>
 
 </div>
@@ -648,6 +497,7 @@ Compra segura via PIX • Seus dados protegidos • Entrega em até 3 dias
 
 const API =
 "https://site-produto-api.onrender.com";
+
 
 const form =
 document.getElementById("form");
@@ -683,15 +533,20 @@ function pagamentoFoiPago(data){
 if(!data)
 return false;
 
-const status=[];
+const encontrados=[];
+
 
 function procurar(obj){
 
-if(!obj ||
-typeof obj!=="object")
+if(
+!obj ||
+typeof obj !== "object"
+)
 return;
 
-for(const key of Object.keys(obj)){
+for(
+const key of Object.keys(obj)
+){
 
 const value=obj[key];
 
@@ -703,7 +558,7 @@ key.toLowerCase().includes("state")
 )
 ){
 
-status.push(
+encontrados.push(
 value.toUpperCase()
 );
 
@@ -722,10 +577,11 @@ procurar(value);
 
 }
 
+
 procurar(data);
 
-return [
 
+const pagos=[
 "PAID",
 "PAID_OUT",
 "PAYMENT_COMPLETED",
@@ -735,9 +591,11 @@ return [
 "APPROVED",
 "APROVADO",
 "PAGO"
+];
 
-].some(
-x=>status.includes(x)
+
+return encontrados.some(
+status=>pagos.includes(status)
 );
 
 }
@@ -757,7 +615,9 @@ behavior:"smooth"
 }
 
 
-async function verificarPagamento(id){
+async function verificarPagamento(
+transactionId
+){
 
 try{
 
@@ -765,7 +625,9 @@ const response =
 await fetch(
 API+
 "/api/check-pix/"+
-encodeURIComponent(id)
+encodeURIComponent(
+transactionId
+)
 );
 
 const data =
@@ -781,9 +643,9 @@ return true;
 
 }
 
-}catch(e){
+}catch(error){
 
-console.log(e);
+console.log(error);
 
 }
 
@@ -792,7 +654,9 @@ return false;
 }
 
 
-function acompanhar(id){
+function acompanharPagamento(
+transactionId
+){
 
 let tentativas=0;
 
@@ -803,14 +667,18 @@ async()=>{
 tentativas++;
 
 const pago =
-await verificarPagamento(id);
+await verificarPagamento(
+transactionId
+);
 
 if(
 pago ||
 tentativas>=180
 ){
 
-clearInterval(intervalo);
+clearInterval(
+intervalo
+);
 
 }
 
@@ -823,9 +691,9 @@ clearInterval(intervalo);
 
 form.addEventListener(
 "submit",
-async function(e){
+async function(event){
 
-e.preventDefault();
+event.preventDefault();
 
 error.textContent="";
 
@@ -837,11 +705,14 @@ button.textContent=
 
 const address={
 
-cep:valor("cep"),
+cep:
+valor("cep"),
 
-state:valor("state"),
+state:
+valor("state"),
 
-city:valor("city"),
+city:
+valor("city"),
 
 neighborhood:
 valor("neighborhood"),
@@ -862,7 +733,8 @@ try{
 
 const response =
 await fetch(
-API+"/api/create-pix",
+API+
+"/api/create-pix",
 {
 
 method:"POST",
@@ -886,6 +758,7 @@ valor("phone"),
 email:
 valor("email"),
 
+address:
 address
 
 })
@@ -910,9 +783,11 @@ data.message ||
 }
 
 
-checkout.style.display="none";
+checkout.style.display=
+"none";
 
-pix.style.display="block";
+pix.style.display=
+"block";
 
 
 const code =
@@ -925,23 +800,32 @@ document.getElementById(
 
 
 new QRCode(
-document.getElementById("qrcode"),
+document.getElementById(
+"qrcode"
+),
 {
+
 text:code,
+
 width:240,
+
 height:240
+
 }
 );
 
 
-acompanhar(
+acompanharPagamento(
 data.idTransaction
 );
 
 
 window.scrollTo({
+
 top:pix.offsetTop,
+
 behavior:"smooth"
+
 });
 
 
