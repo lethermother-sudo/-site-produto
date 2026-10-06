@@ -161,14 +161,12 @@
     }
   </style>
 
-  <!-- Biblioteca para gerar QR Code -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body>
 
   <main class="container">
-
     <section class="hero">
 
       <h1>Seu Produto</h1>
@@ -233,11 +231,7 @@
 
         <div id="qrcode"></div>
 
-        <textarea
-          id="pixCode"
-          class="pix-code"
-          readonly
-        ></textarea>
+        <textarea id="pixCode" class="pix-code" readonly></textarea>
 
         <button class="copy-button" onclick="copiarPix()">
           COPIAR PIX
@@ -250,11 +244,9 @@
       </div>
 
     </section>
-
   </main>
 
   <script>
-
     const API_URL = "https://site-produto-api.onrender.com";
 
     let transactionId = null;
@@ -268,55 +260,38 @@
     }
 
     async function criarPix() {
+      const name = document.getElementById("name").value.trim();
+      const documentValue = document.getElementById("document").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
 
-      const name =
-        document.getElementById("name").value.trim();
-
-      const documentValue =
-        document.getElementById("document").value.trim();
-
-      const phone =
-        document.getElementById("phone").value.trim();
-
-      const email =
-        document.getElementById("email").value.trim();
-
-      const error =
-        document.getElementById("error");
-
-      const loading =
-        document.getElementById("loading");
+      const error = document.getElementById("error");
+      const loading = document.getElementById("loading");
 
       error.textContent = "";
 
       if (!name || !documentValue || !phone || !email) {
-        error.textContent =
-          "Preencha todos os dados para continuar.";
-
+        error.textContent = "Preencha todos os dados para continuar.";
         return;
       }
 
       loading.style.display = "block";
 
       try {
+        const response = await fetch(`${API_URL}/api/create-pix`, {
+          method: "POST",
 
-        const response = await fetch(
-          `${API_URL}/api/create-pix`,
-          {
-            method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
 
-            headers: {
-              "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-              name,
-              document: documentValue,
-              phone,
-              email
-            })
-          }
-        );
+          body: JSON.stringify({
+            name,
+            document: documentValue,
+            phone,
+            email
+          })
+        });
 
         const data = await response.json();
 
@@ -335,8 +310,7 @@
         console.error(err);
 
         error.textContent =
-          err.message ||
-          "Erro ao criar o pagamento.";
+          err.message || "Erro ao criar o pagamento.";
 
       } finally {
 
@@ -347,17 +321,13 @@
 
     function mostrarPix(paymentCode) {
 
-      document.getElementById("checkout").style.display =
-        "none";
+      document.getElementById("checkout").style.display = "none";
 
-      document.getElementById("pix").style.display =
-        "block";
+      document.getElementById("pix").style.display = "block";
 
-      document.getElementById("pixCode").value =
-        paymentCode;
+      document.getElementById("pixCode").value = paymentCode;
 
-      const qr =
-        document.getElementById("qrcode");
+      const qr = document.getElementById("qrcode");
 
       qr.innerHTML = "";
 
@@ -408,13 +378,11 @@
 
         if (data.success) {
 
-          const transaction =
-            data.transaction;
+          const transaction = data.transaction;
 
-          const status =
-            Array.isArray(transaction)
-              ? transaction[0]?.status
-              : transaction.status;
+          const status = Array.isArray(transaction)
+            ? transaction[0]?.status
+            : transaction.status;
 
           if (
             status === "PAID_OUT" ||
@@ -439,7 +407,6 @@
 
       setTimeout(verificarPagamento, 5000);
     }
-
   </script>
 
 </body>
